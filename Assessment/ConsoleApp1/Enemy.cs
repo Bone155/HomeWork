@@ -19,7 +19,6 @@ namespace ConsoleApp1
         public bool isEnabled = true;
 
         public Texture2D Etexture;
-        public float Scale = 1f;
 
         public void EnemyTexture(string file)
         {
@@ -30,7 +29,7 @@ namespace ConsoleApp1
         {
             if (!isEnabled)
                 return;
-            rl.DrawTextureEx(Etexture, new Vector2(Position.x, Position.y), 0f, Scale, color);
+            rl.DrawTextureEx(Etexture, new Vector2(Position.x, Position.y), 0f, 1f, color);
         }
     }
 }

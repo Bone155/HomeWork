@@ -12,8 +12,8 @@ namespace ConsoleApp1
             bool rtn = false;
             Rectangle PickupCol; // = new Rectangle(pu.Position.x + 20, pu.Position.y + 20, 20, 20);
             //sprites
-            float w = pu.texture.width * pu.SprScale;
-            float h = pu.texture.height * pu.SprScale;
+            float w = pu.texture.width * 1f;
+            float h = pu.texture.height * 1f;
 
             PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
             //debug
@@ -33,8 +33,8 @@ namespace ConsoleApp1
             
             Rectangle EnemyCol;
             //sprites
-            float Ew = e.Etexture.width * e.Scale;
-            float Eh = e.Etexture.height * e.Scale;
+            float Ew = e.Etexture.width * 1f;
+            float Eh = e.Etexture.height * 1f;
             EnemyCol = new Rectangle(e.Position.x, e.Position.y, Ew, Eh);
 
             Rectangle PlayerCol = new Rectangle(pl.Position.x - 15, pl.Position.y + 5, 10, 40);
@@ -74,7 +74,7 @@ namespace ConsoleApp1
                 enemies[Enidx] = new Enemy();
                 enemies[Enidx].Position.x = rand.Next(20, 780);
                 enemies[Enidx].Position.y = rand.Next(30, 470);
-                enemies[Enidx].EnemyTexture("fly.png");
+                enemies[Enidx].EnemyTexture("bat.png");
                 Enidx++;
             }
 
@@ -89,8 +89,8 @@ namespace ConsoleApp1
                 idx++;
             }
 
-            player.Position.x = 75;
-            player.Position.y = 75;
+            player.Position.x = rand.Next(20, 780);
+            player.Position.y = rand.Next(30, 420);
 
 
 
@@ -134,14 +134,14 @@ namespace ConsoleApp1
                         {
                             health--;
                         }
-                        //if (enemy.Position.x > player.Position.x)
-                        //    enemy.Position.x--;
-                        //if (enemy.Position.x < player.Position.x)
-                        //    enemy.Position.x++;
-                        //if (enemy.Position.y > player.Position.y)
-                        //    enemy.Position.y--;
-                        //if (enemy.Position.y < player.Position.y)
-                        //    enemy.Position.y++;
+                        if (enemy.Position.x > player.Position.x)
+                            enemy.Position.x--;
+                        if (enemy.Position.x < player.Position.x)
+                            enemy.Position.x++;
+                        if (enemy.Position.y > player.Position.y)
+                            enemy.Position.y--;
+                        if (enemy.Position.y < player.Position.y)
+                            enemy.Position.y++;
                         if (health <= 0)
                         {
                             rl.DrawText("Game Over", 250, 50, 20, Color.ORANGE);

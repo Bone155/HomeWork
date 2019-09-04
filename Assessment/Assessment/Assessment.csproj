@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EA6A0901-3C76-40E4-BADA-09AC68294C6C}</ProjectGuid>
+    <ProjectGuid>{E1D3780E-6630-47AB-93A4-FA306CF59DB1}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Assessment</RootNamespace>
     <AssemblyName>Assessment</AssemblyName>
@@ -43,9 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Move.cs" />
-    <Compile Include="Opponent.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
