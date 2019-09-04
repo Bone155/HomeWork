@@ -17,10 +17,13 @@
     <None Update="bat.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="fly.png">
+    <None Update="platformPack_item001.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="platformPack_item001.png">
+    <None Update="platformPack_item009.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="platformPack_item017.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="powerUp1.ogg">

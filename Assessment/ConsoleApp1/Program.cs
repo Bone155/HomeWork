@@ -44,20 +44,20 @@ namespace ConsoleApp1
             return rtn;
         }
 
-
         public static int Main()
         {
             // Initialization
             //--------------------------------------------------------------------------------------
             Random rand = new Random();
             Player player = new Player();
-            Pickup[] Test = new Pickup[10];
+            Pickup[] pickup = new Pickup[10];
             Enemy[] enemies = new Enemy[10];
             Enemy enemy = new Enemy();
             //Enemy enemyUp = new Enemy();
             //Enemy enemyDown = new Enemy();
             int screenWidth = 800;
             int screenHeight = 450;
+            
             int score = 0;
             int timer = 0;
             int health = player.plHealth;
@@ -65,8 +65,7 @@ namespace ConsoleApp1
             //rl.InitAudioDevice();
             //var pick = rl.LoadAudioStream("powerUp1.oog");
 
-
-            rl.InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+            rl.InitWindow(screenWidth, screenHeight, "Assessment");
 
             int Enidx = 0;
             for (int i = 100; i < 700 && Enidx < 10; i += 40)
@@ -77,22 +76,18 @@ namespace ConsoleApp1
                 enemies[Enidx].EnemyTexture("bat.png");
                 Enidx++;
             }
-
             int idx = 0;
             for (int x = 100; x < 700 && idx < 10; x += 40)
             {
-                Test[idx] = new Pickup();
-                Test[idx].Position.x = rand.Next(20, 780);
-                Test[idx].Position.y = rand.Next(30, 420);
-                //Test[idx].SprScale = idx * .1f;
-                Test[idx].SetTexture("platformPack_item001.png");
+                pickup[idx] = new Pickup();
+                pickup[idx].Position.x = rand.Next(20, 780);
+                pickup[idx].Position.y = rand.Next(30, 420);
+                pickup[idx].SetTexture();
                 idx++;
             }
 
             player.Position.x = rand.Next(20, 780);
             player.Position.y = rand.Next(30, 420);
-
-
 
             rl.SetTargetFPS(60);
             //--------------------------------------------------------------------------------------
@@ -150,12 +145,25 @@ namespace ConsoleApp1
                         }
                     }
                 }
-                foreach (Pickup pickup in Test)
+
+                foreach (Pickup pick in pickup)
                 {
-                    if (pickup.Enabled)
+                    if (pick.Enabled)
                     {
-                        pickup.Draw();
-                        score += CheckCollisionV1(player, pickup) ? 1 : 0;
+                        switch (pick.up)
+                        {
+                            case Pickup.PickupType.Ammo:
+                                break;
+                            case Pickup.PickupType.Health:
+                                break;
+                            case Pickup.PickupType.Score:
+                                break;
+                            default:
+                                break;
+                        }
+                        
+                        pick.Draw();
+                        score += CheckCollisionV1(player, pick) ? 1 : 0;
                         //rl.PlayAudioStream(pick);
                         //if (CheckCollisionV1(player, pickup))
                         //    score++;

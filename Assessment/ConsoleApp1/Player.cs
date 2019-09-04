@@ -42,6 +42,7 @@ namespace ConsoleApp1
         {
             rl.DrawCircle(Position.x, Position.y, 5f, color);
             rl.DrawRectangle(Position.x-5, Position.y+5, 10, 30, color);
+
         }
 
     }

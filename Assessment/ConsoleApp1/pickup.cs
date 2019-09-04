@@ -8,62 +8,69 @@ namespace ConsoleApp1
 {
     class Pickup
     {
-        public Vector2Int Position;
-        Color color;
-        public bool Enabled;
+        enum PickupType  { Ammo, Health, Score};
+        public PickupType up;
+        public Vector2Int Position = new Vector2Int();
+        public bool Enabled = true;
         public Texture2D texture;
         public string file;
-
-
-        public Pickup(Vector2Int Position, Color color, bool Enabled, Texture2D texture, string file)
-        {
-            this.Position = Position;
-            this.color = Color.RED;
-            this.Enabled = true;
-            this.texture = texture;
-            this.file = file;
-        }
-
-        public void SetTexture()
-        {
-            texture = rl.LoadTexture(file);
-        }
-
     }
     class Ammo : Pickup
     {
         int ammo;
-
-        public Ammo(Vector2Int Position, Color color, bool Enabled, Texture2D texture, string file, int ammo) : base(Position, color, Enabled, texture, file)
+        public Ammo()
         {
-            this.ammo = 5;
+            up = PickupType.Ammo;
+            ammo = 5;
+            file = "platformPack_item001.png";
+            texture = rl.LoadTexture(file);
         }
 
         public void Draw()
         {
             if (!(Enabled))
                 return;
-            rl.DrawTextureEx(texture, new Vector2(Position.x, Position.y), 0f, 1f, color);
-            
-        }
-
-
-        class Health : Pickup
-        {
-            int health;
-
-            public Health(Vector2Int Position, Color color, bool Enabled, Texture2D texture, string file, int health) : base(Position, color, Enabled, texture, file)
-            {
-                this.health = 5;
-            }
-
-            public void Draw()
-            {
-                if (!(Enabled))
-                    return;
-                rl.DrawTextureEx(texture, new Vector2(Position.x, Position.y), 0f, 1f, color);
-
-            }
-
+            rl.DrawTextureEx(texture, new Vector2(Position.x, Position.y), 0f, 1f, Color.RED);
         }
     }
+
+    class Health : Pickup
+    {
+        int health;
+
+        public Health()
+        {
+            up = PickupType.Health;
+            health = 5;
+            file = "platformPack_item017.png";
+            texture = rl.LoadTexture(file);
+        }
+
+        public void Draw()
+        {
+            if (!(Enabled))
+                return;
+            rl.DrawTextureEx(texture, new Vector2(Position.x, Position.y), 0f, 1f, Color.RED);
+        }
+    }
+
+    class Score : Pickup
+    {
+        int score;
+
+        public Score()
+        {
+            up = PickupType.Score;
+            score = 5;
+            file = "platformPack_item009.png";
+            texture = rl.LoadTexture(file);
+        }
+
+        public void Draw()
+        {
+            if (!(Enabled))
+                return;
+            rl.DrawTextureEx(texture, new Vector2(Position.x, Position.y), 0f, 1f, Color.RED);
+        }
+    }
+}
