@@ -18,16 +18,28 @@ namespace ConsoleApp1
         public PickupType up;
         public Vector2P Position = new Vector2P();
         public bool Enabled = true;
-        public static Texture2D texture;
     }
 
     class Ammo : Pickup
     {
         public int ammo;
+        public static Texture2D texture;
+        public static int width;
+        public static int height;
         public Ammo()
         {
             up = PickupType.Ammo;
             ammo = 5;
+        }
+
+        public int getWidth()
+        {
+            return texture.width;
+        }
+
+        public int getHeight()
+        {
+            return texture.height;
         }
 
         public static void SetTexture(string file)
@@ -46,11 +58,23 @@ namespace ConsoleApp1
     class Health : Pickup
     {
         public int health;
-
+        public static Texture2D texture;
+        public int width;
+        public int height;
         public Health()
         {
             up = PickupType.Health;
             health = 5;
+        }
+
+        public int getWidth()
+        {
+            return texture.width;
+        }
+
+        public int getHeight()
+        {
+            return texture.height;
         }
 
         public static void SetTexture(string file)
@@ -69,11 +93,23 @@ namespace ConsoleApp1
     class Score : Pickup
     {
         public int score;
-
+        public static Texture2D texture;
+        public int width;
+        public int height;
         public Score()
         {
             up = PickupType.Score;
             score = 0;
+        }
+
+        public int getWidth()
+        {
+            return texture.width;
+        }
+
+        public int getHeight()
+        {
+            return texture.height;
         }
 
         public static void SetTexture(string file)

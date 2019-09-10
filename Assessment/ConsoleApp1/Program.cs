@@ -11,15 +11,37 @@ namespace ConsoleApp1
         {
             bool rtn = false;
             Rectangle PickupCol;
+            Rectangle PlayerCol;
             //sprites
-            float w = Pickup.texture.width * 1f;
-            float h = Pickup.texture.height * 1f;
+            float w;
+            float h;
+            switch (pu.up)
+            {
+                case Pickup.PickupType.Ammo:
+                    w = ((Ammo)pu).getWidth() * 1f;
+                    h = ((Ammo)pu).getHeight() * 1f;
+                    PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
+                    PlayerCol = new Rectangle(pl.Position.x - 15, pl.Position.y + 5, 10, 40);
+                    rtn = rl.CheckCollisionRecs(PlayerCol, PickupCol);
+                    break;
+                case Pickup.PickupType.Health:
+                    w = ((Health)pu).getWidth() * 1f;
+                    h = ((Health)pu).getHeight() * 1f;
+                    PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
+                    PlayerCol = new Rectangle(pl.Position.x - 15, pl.Position.y + 5, 10, 40);
+                    rtn = rl.CheckCollisionRecs(PlayerCol, PickupCol);
+                    break;
+                case Pickup.PickupType.Score:
+                    w = ((Score)pu).getWidth() * 1f;
+                    h = ((Score)pu).getHeight() * 1f;
+                    PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
+                    PlayerCol = new Rectangle(pl.Position.x - 15, pl.Position.y + 5, 10, 40);
+                    rtn = rl.CheckCollisionRecs(PlayerCol, PickupCol);
+                    break;
+                default:
+                    break;
+            }
 
-            PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
-            PickupCol = new Rectangle(pu.Position.x, pu.Position.y, w, h);
-
-            Rectangle PlayerCol = new Rectangle(pl.Position.x - 15, pl.Position.y + 5, 10, 40);
-            rtn = rl.CheckCollisionRecs(PlayerCol, PickupCol);
             if(rtn) { pu.Enabled = false;  }
             return rtn;
         }
@@ -46,12 +68,13 @@ namespace ConsoleApp1
             //--------------------------------------------------------------------------------------
             Random rand = new Random();
             Player player = new Player();
-            Pickup[] pickup = new Pickup[10];
-            Enemy[] enemies = new Enemy[10];
+            Pickup[] pickup = new Pickup[70];
+            Enemy[] enemies = new Enemy[50];
             Enemy enemy = new Enemy();
+            Gun gun = new Gun();
 
-            int screenWidth = 800;
-            int screenHeight = 450;
+            int screenWidth = 1600;
+            int screenHeight = 900;
 
             int health = player.health;
             int ammo = player.ammo;
@@ -65,21 +88,18 @@ namespace ConsoleApp1
 
             //Create enemies
             Enemy.EnemyTexture("bat.png");
-            int Enidx = 0;
-            for (int i = 100; i < 700 && Enidx < enemies.Length; i += 40)
+            for (int Enidx = 0; Enidx < enemies.Length; Enidx++)
             {
                 enemies[Enidx] = new Enemy();
                 enemies[Enidx].Position.x = rand.Next(20, screenWidth - 20);
                 enemies[Enidx].Position.y = rand.Next(30, screenHeight - 20);
-                Enidx++;
             }
 
             //Create pickups
-            int idx = 0;
             Ammo.SetTexture("platformPack_item001.png");
             Health.SetTexture("platformPack_item017.png");
             Score.SetTexture("platformPack_item009.png");
-            for (int x = 100; x < 700 && idx < pickup.Length; x += 40)
+            for (int idx = 0; idx < pickup.Length; idx++)
             {
                 int pickChoice = rand.Next(0, 3);
                 if(pickChoice == 0)
@@ -100,7 +120,6 @@ namespace ConsoleApp1
                     pickup[idx].Position.x = rand.Next(20, screenWidth - 20);
                     pickup[idx].Position.y = rand.Next(30, screenHeight - 20);
                 }
-                idx++;
             }
 
             player.Position.x = rand.Next(20, screenWidth - 20);
@@ -125,17 +144,16 @@ namespace ConsoleApp1
                 rl.ClearBackground(Color.LIGHTGRAY);
                 rl.DrawText("Score: " + score, 50, 50, 12,  Color.WHITE);
                 rl.DrawText("Health: " + health, 50, 75, 12, Color.WHITE);
-                rl.DrawText("Time: " + timer / 60, 750, 50, 12, Color.WHITE);
-                rl.DrawText("Ammo: " + ammo, 750, 80, 12, Color.WHITE);
+                rl.DrawText("Time: " + timer / 60, screenWidth - 200, 50, 12, Color.WHITE);
+                rl.DrawText("Ammo: " + ammo, screenWidth - 200, 80, 12, Color.WHITE);
 
-                //if (timer/60 >= 15 && winState == false)
+                //if (timer/60 >= 30 && winState == false)
                 //{
                 //    rl.DrawText("Game Over", 250, 50, 20, Color.ORANGE);
                 //    rl.DrawText("BOI", 250, 75, 20, Color.ORANGE);
                 //    player.speed = 0;
                 //}
                 player.Draw();
-
                 foreach (Enemy en in enemies)
                 {
                     if (en.isEnabled)
@@ -146,16 +164,19 @@ namespace ConsoleApp1
                             health--;
                             score++;
                         }
-                        if (en.Position.x > player.Position.x)
-                            en.Position.x-= 3;
-                        if (en.Position.x < player.Position.x)
-                            en.Position.x+= 3;
-                        if (en.Position.y > player.Position.y)
-                            en.Position.y-= 3;
-                        if (en.Position.y < player.Position.y)
-                            en.Position.y+= 3;
+
+                        //if (en.Position.x > player.Position.x)
+                        //    en.Position.x-= 3;
+                        //if (en.Position.x < player.Position.x)
+                        //    en.Position.x+= 3;
+                        //if (en.Position.y > player.Position.y)
+                        //    en.Position.y-= 3;
+                        //if (en.Position.y < player.Position.y)
+                        //    en.Position.y+= 3;
+
                         if (health <= 0)
                         {
+                            health = 0;
                             rl.DrawText("Game Over", 250, 50, 20, Color.ORANGE);
                             rl.DrawText("BOI", 250, 75, 20, Color.ORANGE);
                             player.speed = 0;
@@ -170,14 +191,17 @@ namespace ConsoleApp1
                         switch (pick.up)
                         {
                             case Pickup.PickupType.Ammo:
-                                ammo += CheckCollisionV1(player, pick) ? 1 : 0;
+                                ((Ammo)pick).Draw();
+                                ammo += CheckCollisionV1(player, pick) ? 1 : 0;//adds one to variable
                                 break;
                             case Pickup.PickupType.Health:
-                                health += CheckCollisionV1(player, pick) ? 1 : 0;//adds one to variable
+                                ((Health)pick).Draw();
+                                health += CheckCollisionV1(player, pick) ? 1 : 0;
                                 break;
                             case Pickup.PickupType.Score:
+                                ((Score)pick).Draw();
                                 if (CheckCollisionV1(player, pick))
-                                    score+=10;
+                                    score+= rand.Next(1, 11);
                                 break;
                             default:
                                 break;
