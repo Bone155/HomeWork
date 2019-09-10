@@ -13,9 +13,12 @@ namespace ConsoleApp1
     }
     class Player
     {
+        Gun gun = new Gun();
         public int speed = 5;
         public int timer = 0;
-        public int plHealth = 3;
+        public int health = 5;
+        public int ammo = 5;
+        public int score = 0;
         public Vector2Int Position = new Vector2Int();
         public Color color = Color.BLUE;
         public void RunUpdate()
@@ -42,7 +45,7 @@ namespace ConsoleApp1
         {
             rl.DrawCircle(Position.x, Position.y, 5f, color);
             rl.DrawRectangle(Position.x-5, Position.y+5, 10, 30, color);
-
+            gun.Draw();
         }
 
     }

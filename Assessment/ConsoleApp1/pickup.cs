@@ -6,23 +6,32 @@ using rl = Raylib.Raylib;
 
 namespace ConsoleApp1
 {
+    struct Vector2P
+    {
+        public int x;
+        public int y;
+    }
+
     class Pickup
     {
-        enum PickupType  { Ammo, Health, Score};
+        public enum PickupType  { Ammo, Health, Score};
         public PickupType up;
-        public Vector2Int Position = new Vector2Int();
+        public Vector2P Position = new Vector2P();
         public bool Enabled = true;
-        public Texture2D texture;
-        public string file;
+        public static Texture2D texture;
     }
+
     class Ammo : Pickup
     {
-        int ammo;
+        public int ammo;
         public Ammo()
         {
             up = PickupType.Ammo;
             ammo = 5;
-            file = "platformPack_item001.png";
+        }
+
+        public static void SetTexture(string file)
+        {
             texture = rl.LoadTexture(file);
         }
 
@@ -36,13 +45,16 @@ namespace ConsoleApp1
 
     class Health : Pickup
     {
-        int health;
+        public int health;
 
         public Health()
         {
             up = PickupType.Health;
             health = 5;
-            file = "platformPack_item017.png";
+        }
+
+        public static void SetTexture(string file)
+        {
             texture = rl.LoadTexture(file);
         }
 
@@ -56,13 +68,16 @@ namespace ConsoleApp1
 
     class Score : Pickup
     {
-        int score;
+        public int score;
 
         public Score()
         {
             up = PickupType.Score;
-            score = 5;
-            file = "platformPack_item009.png";
+            score = 0;
+        }
+
+        public static void SetTexture(string file)
+        {
             texture = rl.LoadTexture(file);
         }
 

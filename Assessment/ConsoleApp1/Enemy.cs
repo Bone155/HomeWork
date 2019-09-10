@@ -13,14 +13,13 @@ namespace ConsoleApp1
     }
     class Enemy
     {
-        public int speed = 3;
         public Vector2E Position = new Vector2E();
         public Color color = Color.DARKPURPLE;
         public bool isEnabled = true;
 
-        public Texture2D Etexture;
+        public static Texture2D Etexture;
 
-        public void EnemyTexture(string file)
+        public static void EnemyTexture(string file)
         {
             Etexture = rl.LoadTexture(file);
         }
