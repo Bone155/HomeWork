@@ -99,6 +99,7 @@ namespace SerBroEx
 
             int NumServ2 = sbs.GetServers(ref tmpOp, 10);
 
+            Console.ReadLine();
         }
     }
 }
